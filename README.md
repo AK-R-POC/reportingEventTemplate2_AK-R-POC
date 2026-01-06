@@ -1,4 +1,4 @@
-# reportingEventTemplate2_AK-R-POC
+# What to do when the reportingEvent repo for RStudio is created.
 For study XXXX: reporting event YYYY
 1) Create GitHub repository for a new R project as GitHub user(email based)
 - create a non-main branch(e.g. dev branch)
@@ -9,10 +9,11 @@ For study XXXX: reporting event YYYY
   #e.g. 
   ssh-keygen -t ed25519 -C "atsushi.kitagawa@dxc.com" or RStudio GUI
 - Keep secret key on your home and copy public key and register to GitHub(as your SSH key)
-- Register GitHub username and email address as follows.
+- Register GitHub username, email address and .githooks directory as follows.
   #e.g.
   git config --global user.email "atsushi.kitagawa@dxc.com"
   git config --global user.name "atsurinange"
+  git config --global core.hooksPath .githooks
 
 3) Create a new R project(reporting activity) in mode of version control and using git
 - [Important!] Input URL as SSH
@@ -32,7 +33,7 @@ For study XXXX: reporting event YYYY
 - renv::status()
 - renv::snapshot()            #Create renv.lock file
 
-7) (Option) chmod the renv folder for project library in case of collaboration with other users
+7) (Option) Execute chmod to grant rwx permission to study group against the renv folder of project library in case of collaboration with other users
 - chmod -R g+rwx renv/library/R-4.3/x86_64-pc-linux-gnu/renv
 
 8) Create your own Rscripits under the project folder
