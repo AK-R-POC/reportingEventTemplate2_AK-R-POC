@@ -19,17 +19,21 @@ permissions:
 
 on:
   workflow_dispatch: {}
-  push:
-    branches: [main]
-
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
 jobs:
   deploy:
     # Self-Hosted ランナーを指定（タグは環境に合わせて調整してください）
     runs-on: [self-hosted, linux]
     
     # テンプレートリポジトリ（名前に 'template' を含む）では実行しない
-    if: ${{ !contains(github.event.repository.name , 'template') }}
-
+    if: >-
+      !contains(github.event.repository.name , 'template') &&
+      (github.event_name == 'workflow_dispatch' || github.event.pull_request.merged == true)
+      
     env:
       MOUNT_TARGET_DIR: ${{ secrets.MOUNT_TARGET_DIR }}
 
@@ -92,6 +96,7 @@ jobs:
         if: success() && env.MOUNT_TARGET_DIR == ''
         run: |
           echo "::warning::Skipped deployment because required secret is missing (MOUNT_TARGET_DIR)."
+
 
 
 
