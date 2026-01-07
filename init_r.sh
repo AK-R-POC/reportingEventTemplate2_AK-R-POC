@@ -2,8 +2,7 @@
 # **************************************************************
 # Copy .Rprofile and .Renviron to project directory
 # **************************************************************
-echo "Current Directory:"
-pwd 2>&1
+echo "Current Directory: $(pwd)"
 echo "*** File list under project directory BEFORE copying ***"
 ls -al 2>&1
 echo "*** Start copying... ***"
